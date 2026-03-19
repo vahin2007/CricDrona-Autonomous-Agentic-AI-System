@@ -1,5 +1,8 @@
 # 🏏 CricDrona: Autonomous Text-to-SQL Agentic Workflow
 
+> 🚧 **STATUS: ACTIVE DEVELOPMENT (SPRINT 3)**
+> *The ETL pipeline and SQLite database architectures are fully deployed. Currently actively engineering the LangChain ReAct framework and Episodic Memory loops for the Llama-3 agent. Expect frequent commits.*
+
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg) ![LangChain](https://img.shields.io/badge/LangChain-Integration-black) ![SQLite](https://img.shields.io/badge/SQLite-Optimized-lightgrey)
 
 An enterprise-grade autonomous AI system that translates natural language queries into deterministic SQL to analyze complex sports datasets. 

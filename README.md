@@ -272,6 +272,48 @@ drona/
 ```
 
 ---
+## Future Work
+
+**Immediate improvements (next semester, same hardware)**
+
+- *Ground-truth bowling styles:* Replace the heuristic pace/spin classifier with a scraped Cricinfo dataset of ~800 bowler styles. This would make `batter_vs_bowling_style` queries significantly more accurate — currently ~15% of bowlers are classified as `unknown`.
+
+- *Real-time data feed:* Integrate the Cricsheet live scores API or a websocket feed so the momentum detector consumes actual ball-by-ball data during a match rather than requiring manual input.
+
+- *Larger fine-tuning corpus:* 690 examples is sufficient for schema adherence. Expanding to 2,000+ examples with more edge cases — mid-over changes, DLS scenarios, rain interruptions — would improve tactical reasoning depth.
+
+- *Multi-league support:* Extend the ETL to ingest BBL, CPL, and SA20 Cricsheet data. The schema is identical — it's a config change, not a rewrite.
+
+**With better hardware (RTX 4090 / A100)**
+
+- *Full fine-tuning instead of LoRA:* LoRA at rank=16 updates ~10M of 8B parameters. Full fine-tuning would update all 8B, producing a model that reasons about cricket tactics more deeply, not just generates schema-correct SQL. Requires ~80GB VRAM — not feasible on 8GB.
+
+- *Larger base model (Llama 3.1 70B):* The 70B model's reasoning capability would dramatically reduce the need for fine-tuning to achieve correct SQL generation. The 8B model requires explicit schema injection and error correction loops that the 70B largely avoids out of the box. Requires ~40GB VRAM in 4-bit.
+
+- *Embedding-based memory retrieval:* Replace keyword-matched episodic memory with a sentence-transformer embedding layer. "Pitch was damp after rain" would semantically match future queries about slow surfaces — currently only exact keyword overlap triggers retrieval.
+
+**Research directions**
+
+- *Formal evaluation benchmark:* Publish a CricketSQL benchmark dataset — 200 questions with verified SQL answers against the IPL schema — to enable reproducible evaluation of Text-to-SQL systems in the cricket domain.
+
+- *Uncertainty-aware recommendations:* Extend Wilson CI to a full Bayesian posterior so the agent can say not just "low confidence" but "there is a 73% chance the true dismissal rate is above 15%" — actionable probability rather than a binary warning.
+
+- *Opponent modelling:* Train a separate model on bowling strategy patterns to predict what the opposition captain will do next, enabling pre-emptive field setting advice rather than just reactive bowling recommendations.
+
+---
+
+## Evaluation Results
+
+| Metric | llama3.1:8b (Base) | drona-v1 (Fine-Tuned) |
+|--------|--------------------|-----------------------|
+| SQL Execution Rate | 45% | TBD post-training |
+| Schema Accuracy | 35% | TBD post-training |
+| Result Accuracy | 45% | TBD post-training |
+| Archetype Query Accuracy | ~40% | TBD post-training |
+
+*Fine-tuned model evaluation to be updated post-training.*
+
+---
 
 <p align="center">
 Built as a 4th-semester B.Tech capstone in AI & Data Science<br>

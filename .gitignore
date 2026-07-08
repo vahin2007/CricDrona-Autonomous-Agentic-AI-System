@@ -1,0 +1,18 @@
+# Ignore virtual environments
+venv/
+
+# Ignore heavy model weights and datasets
+models/
+data/
+db/
+
+# Ignore training outputs and caches
+outputs_v2/
+unsloth_compiled_cache/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+llama.cpp/
+tools/llama.cpp/
